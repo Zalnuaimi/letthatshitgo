@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rasengan Your Worries Away</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: url('naruto_village.jpg') no-repeat center center/cover;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+
+        #prompt {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 20px;
+            margin-bottom: 20px;
+            max-width: 80%;
+        }
+
+        #worries {
+            width: 80%;
+            max-width: 500px;
+            height: 50px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            padding: 10px;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: orange;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            margin-top: 10px;
+        }
+
+        #animation {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        #final-message {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: black;
+            padding: 20px;
+            border: 2px solid orange;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            max-width: 80%;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        .shatter-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: white;
+            animation: shatter 2s forwards;
+            text-shadow: 0px 0px 5px #ff9, 0px 0px 10px #fff;
+        }
+
+        @keyframes shatter {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="prompt">
+        <h1>Write down anything in your mind that's been stressing you lately. Feel free to let it all out as this will only be between you and Naruto. "You'll get what I mean later on LOL :)"</h1>
+        <textarea id="worries" placeholder="Type your thoughts here..."></textarea>
+        <br>
+        <button onclick="destroyWorries()">Click here and see the magic happen!</button>
+    </div>
+    <div id="animation">
+        <img src="rasengan.gif" alt="Rasengan Animation">
+    </div>
+    <div id="final-message"></div>
+
+    <script>
+        function destroyWorries() {
+            const worries = document.getElementById('worries').value.trim();
+            const animation = document.getElementById('animation');
+            const finalMessage = document.getElementById('final-message');
+
+            if (worries === '') {
+                alert("Please write something down first!");
+                return;
+            }
+
+            // Create a "shatter" effect
+            const shatterEffect = document.createElement('div');
+            shatterEffect.textContent = worries;
+            shatterEffect.className = 'shatter-effect';
+            document.body.appendChild(shatterEffect);
+
+            // Hide the input area
+            document.getElementById('prompt').style.display = 'none';
+
+            // Show Rasengan animation
+            animation.style.display = 'flex';
+
+            setTimeout(() => {
+                animation.style.display = 'none';
+                shatterEffect.remove();
+                finalMessage.style.display = 'block';
+                finalMessage.innerHTML = `
+                    <h2>Your Worries Are Gone!</h2>
+                    <p>Life is too short to let stressful thoughts consume you, and sometimes you just have to pull up a Rasengan move on them and shoot them away, which doesn't make sense I know but like... you're stronger than you realize. You've handled so much already, and I know you'll push through this too.</p>
+                    <button onclick="resetPage()">Start Over</button>
+                `;
+            }, 4000); // Duration of Rasengan animation
+        }
+
+        function resetPage() {
+            // Reset the page by reloading it
+            location.reload();
+        }
+    </script>
+</body>
+</html>
